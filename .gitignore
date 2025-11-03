@@ -1,0 +1,20 @@
+# macOS system files
+.DS_Store
+
+# Build artifacts
+bin/
+obj/
+
+# User files
+*.user
+*.vs
+.vs/
+
+# Logs
+*.log
+
+# Secret configs
+appsettings.Development.json
+
+# Publish output
+publish/
