@@ -1,0 +1,38 @@
+using Microsoft.AspNetCore.Mvc;
+using PMSystem.DTOs;
+using PMSystem.Services;
+
+namespace PMSystem.Controllers
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    public class AuthController : ControllerBase
+    {
+        private readonly IAuthService _authService;
+
+        public AuthController(IAuthService authService)
+        {
+            _authService = authService;
+        }
+
+        [HttpPost("register")]
+        public async Task<IActionResult> Register([FromBody] RegisterRequest request)
+        {
+            var user = await _authService.Register(request);
+            if (user == null)
+                return BadRequest(new { message = "Username already exists" });
+
+            return Ok(new { message = "User registered successfully", userId = user.Id });
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginRequest request)
+        {
+            var response = await _authService.Login(request);
+            if (response == null)
+                return Unauthorized(new { message = "Invalid credentials" });
+
+            return Ok(response);
+        }
+    }
+}
