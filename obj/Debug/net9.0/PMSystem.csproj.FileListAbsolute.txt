@@ -131,3 +131,4 @@
 /Users/yashkanawade/Documents/Projects/PMSystem/obj/Debug/net9.0/PMSystem.pdb
 /Users/yashkanawade/Documents/Projects/PMSystem/obj/Debug/net9.0/PMSystem.genruntimeconfig.cache
 /Users/yashkanawade/Documents/Projects/PMSystem/obj/Debug/net9.0/ref/PMSystem.dll
+/Users/yashkanawade/Documents/Projects/PMSystem/obj/Debug/net9.0/PMSystem.sourcelink.json

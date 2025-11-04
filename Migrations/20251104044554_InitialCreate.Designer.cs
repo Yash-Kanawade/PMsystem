@@ -12,7 +12,7 @@ using PMSystem.Data;
 namespace PMSystem.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251103183502_InitialCreate")]
+    [Migration("20251104044554_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

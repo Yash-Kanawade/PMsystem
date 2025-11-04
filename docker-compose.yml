@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:16-alpine
+    container_name: pmsystem-db
+    environment:
+      POSTGRES_DB: pmsystem
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root  # ✅ Changed to 'root'
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - pmsystem-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ASP.NET Core API
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: pmsystem-api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:5001
+      - ConnectionStrings__DefaultConnection=Host=postgres;Database=pmsystem;Username=postgres;Password=root  # ✅ Changed to 'root'
+      - Jwt__Key=your-super-secret-key-at-least-32-characters-long-for-security
+      - Jwt__Issuer=PMSystem
+      - Jwt__Audience=PMSystemUsers
+    ports:
+      - "5001:5001"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - pmsystem-network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  pmsystem-network:
+    driver: bridge
