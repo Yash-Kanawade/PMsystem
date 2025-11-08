@@ -10,11 +10,16 @@ using PMSystem.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configure Kestrel to listen on port 5001
+// Configure Kestrel to listen on both HTTP and HTTPS
 builder.WebHost.ConfigureKestrel(options =>
 {
-    options.ListenAnyIP(5001); // HTTP
+    options.ListenAnyIP(5050); // HTTP
+    options.ListenAnyIP(5051, listenOptions =>
+    {
+        listenOptions.UseHttps(); // HTTPS
+    });
 });
+
 
 // Add services to the container
 builder.Services.AddControllers()
@@ -100,6 +105,13 @@ builder.Services.AddCors(options =>
     });
 });
 
+// Add HTTPS redirection
+builder.Services.AddHttpsRedirection(options =>
+{
+    options.RedirectStatusCode = StatusCodes.Status307TemporaryRedirect;
+    options.HttpsPort = 5001;
+});
+
 var app = builder.Build();
 
 // Auto-migrate database on startup (useful for Docker)
@@ -150,9 +162,15 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+else
+{
+    // Enable Swagger in production too
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
-// Remove HTTPS redirection for Docker
-// app.UseHttpsRedirection();
+// Enable HTTPS redirection
+app.UseHttpsRedirection();
 
 app.UseCors("AllowAll");
 
@@ -161,6 +179,9 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-Console.WriteLine("🚀 PM System API is running on http://localhost:5001");
+Console.WriteLine("🚀 PM System API is running");
+Console.WriteLine("📡 HTTP:  http://localhost:5000 (redirects to HTTPS)");
+Console.WriteLine("🔒 HTTPS: https://localhost:5001");
+Console.WriteLine("📚 Swagger: https://localhost:5001/swagger");
 
 app.Run();
