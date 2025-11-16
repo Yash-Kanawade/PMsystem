@@ -6,6 +6,7 @@ namespace PMSystem.Models
         public int ProjectId { get; set; }
         public Project Project { get; set; } = null!;
         
+        public int UserId { get; set; }  // Reference to Users table
         public string Name { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
         public string Role { get; set; } = string.Empty; // Developer, Designer, QA, etc.

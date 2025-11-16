@@ -23,6 +23,11 @@ namespace PMSystem.DTOs
         public string? TechStack { get; set; }
     }
 
+    public class UpdateProgressRequest
+    {
+        public int? ProgressPercentage { get; set; }
+    }
+
     public class ProjectResponse
     {
         public int Id { get; set; }
@@ -61,13 +66,11 @@ namespace PMSystem.DTOs
         public int ProgressPercentage { get; set; }
     }
 
-    public class AddTeamMemberRequest
-    {
-        public string Name { get; set; } = string.Empty;
-        public string Email { get; set; } = string.Empty;
-        public string Role { get; set; } = string.Empty;
-    }
-
+   public class AddTeamMemberRequest
+{
+    public int UserId { get; set; }  // Required: User must exist
+    public string Role { get; set; } = string.Empty;  // Role in this project
+}
     public class AddModuleRequest
     {
         public string ModuleName { get; set; } = string.Empty;
@@ -75,4 +78,6 @@ namespace PMSystem.DTOs
         public int AssignedToId { get; set; }
         public string AssignedToName { get; set; } = string.Empty;
     }
+
+    
 }

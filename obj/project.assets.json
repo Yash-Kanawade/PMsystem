@@ -3658,11 +3658,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/yashkanawade/Documents/Projects/PMSystem/PMSystem.csproj",
+      "projectUniqueName": "/Users/yashkanawade/Documents/Projects/Testing/PMSystem/PMSystem.csproj",
       "projectName": "PMSystem",
-      "projectPath": "/Users/yashkanawade/Documents/Projects/PMSystem/PMSystem.csproj",
+      "projectPath": "/Users/yashkanawade/Documents/Projects/Testing/PMSystem/PMSystem.csproj",
       "packagesPath": "/Users/yashkanawade/.nuget/packages/",
-      "outputPath": "/Users/yashkanawade/Documents/Projects/PMSystem/obj/",
+      "outputPath": "/Users/yashkanawade/Documents/Projects/Testing/PMSystem/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/yashkanawade/.nuget/NuGet/NuGet.Config"
